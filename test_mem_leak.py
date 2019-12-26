@@ -26,8 +26,9 @@ def dump_app_info(app,count):
 pid = commands.getstatusoutput("adb shell pgrep system_server")[1]
 print "system_server_pid:",pid
 
-leak_app = "com.android.systemui"
+leak_app = "com.grandstream.gscore.apidemo"
 unleak_app = "com.microsoft.windowsintune.companyportal"
+monitor_app = "surfaceflinger"
 maps_path = "/proc/{}/maps".format(pid)
 back_commands = "adb shell input keyevent BACK"
 start_settings_commands = "adb shell am start -n {}/.MainActivity".format(leak_app)
@@ -61,7 +62,7 @@ for x in range(600):
         commands.getstatusoutput("adb shell procmem {} > /tmp/memdebug/promem{}".format(pid,count))
         commands.getstatusoutput("adb shell lsof -p {} > /tmp/memdebug/lsof{}".format(pid,count))
         #dump_hprof(pid,count)
-        dump_app_info(leak_app,count)
+        dump_app_info(monitor_app,count)
 
     
 
